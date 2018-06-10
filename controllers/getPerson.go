@@ -2,17 +2,16 @@ package controllers
 
 import (
 	"net/http"
+	"github.com/gorilla/mux"
+	"github.com/williamolojede/rest-api/helpers"
 )
 
 func GetPerson(w http.ResponseWriter, r *http.Request) {
-	//params := mux.Vars(r)
-	//for _, person := range People {
-	//	// TODO:  handle error when isn't a number
-	//	id, _ := strconv.Atoi(params["id"])
-	//
-	//	if person.ID == id {
-	//		json.NewEncoder(w).Encode(person)
-	//		break
-	//	}
-	//}
+	params := mux.Vars(r)
+	person, err := dao.FindById(params["id"])
+	if err != nil {
+		helpers.RespondWithError(w, http.StatusBadRequest, "Invalid person ID")
+		return
+	}
+	helpers.RespondWithJson(w, http.StatusOK, person)
 }
