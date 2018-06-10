@@ -5,11 +5,12 @@ import (
 	"github.com/gorilla/mux"
 	"strconv"
 	"encoding/json"
+	. "github.com/williamolojede/rest-api/models"
 )
 
 func GetPerson(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
-	for _, person := range people {
+	for _, person := range People {
 		// TODO:  handle error when isn't a number
 		id, _ := strconv.Atoi(params["id"])
 
