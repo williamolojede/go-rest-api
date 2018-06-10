@@ -5,12 +5,6 @@ import (
 	"encoding/json"
 )
 
-//func RespondWithError(w http.ResponseWriter, code int, msg string) {
-//	response, _ := json.Marshal(map[string]string{"error": msg})
-//	w.WriteHeader(code)
-//	w.Write(response)
-//}
-
 func RespondWithError(w http.ResponseWriter, code int, msg string) {
 	RespondWithJson(w, code, map[string]string{"error": msg})
 }
