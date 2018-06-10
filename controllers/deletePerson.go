@@ -2,16 +2,17 @@ package controllers
 
 import (
 	"net/http"
+	"github.com/gorilla/mux"
+	"github.com/williamolojede/rest-api/helpers"
 )
 
 func DeletePerson(w http.ResponseWriter, r *http.Request) {
-	//params := mux.Vars(r)
-	//for i, person := range People {
-	//	id, _ := strconv.Atoi(params["id"])
-	//	if person.ID == id {
-	//		People = append(People[:i], People[i+1:]...)
-	//		break
-	//	}
-	//}
-	//json.NewEncoder(w).Encode(People)
+	defer r.Body.Close()
+	params := mux.Vars(r)
+	if err := dao.Delete(params["id"]); err != nil {
+		helpers.RespondWithJson(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+	helpers.RespondWithJson(w, http.StatusOK, map[string]string{"result": "person deleted"})
+
 }

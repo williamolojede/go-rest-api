@@ -9,9 +9,9 @@ func (p *PeopleDAO) FindAll() ([]Person, error) {
 	return people, err
 }
 
-func (p *PeopleDAO) FindById(id string) (Person, error) {
+func (p *PeopleDAO) FindById(personId string) (Person, error) {
 	var person Person
-	err := db.C(COLLECTION).FindId(bson.ObjectIdHex(id)).One(&person)
+	err := db.C(COLLECTION).FindId(bson.ObjectIdHex(personId)).One(&person)
 	return person, err
 }
 func (p *PeopleDAO) Insert(person Person) error {
@@ -19,8 +19,8 @@ func (p *PeopleDAO) Insert(person Person) error {
 	return err
 }
 
-func (p *PeopleDAO) Delete(person Person) error {
-	err := db.C(COLLECTION).Remove(&person)
+func (p *PeopleDAO) Delete(personId string) error {
+	err := db.C(COLLECTION).RemoveId(bson.ObjectIdHex(personId))
 	return err
 }
 
