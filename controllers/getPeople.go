@@ -6,6 +6,7 @@ import (
 )
 
 func GetPeople(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	people, err := dao.FindAll()
 	if err != nil {
 		helpers.RespondWithError(w, http.StatusInternalServerError, err.Error())

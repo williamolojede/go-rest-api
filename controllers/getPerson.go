@@ -7,6 +7,7 @@ import (
 )
 
 func GetPerson(w http.ResponseWriter, r *http.Request) {
+	defer r.Body.Close()
 	params := mux.Vars(r)
 	person, err := dao.FindById(params["id"])
 	if err != nil {
